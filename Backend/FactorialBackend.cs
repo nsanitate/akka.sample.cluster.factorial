@@ -22,9 +22,8 @@ namespace Sample.Cluster.Factorial.Backend
             {
                 case int n:
                     Log.Info("I'm working on job {0}", n);
-                    // Task.Run(() => Factorial(n))
-                    // .PipeTo(Sender);
-                    Sender.Tell(Factorial(n), Self);
+                    Task.Run(() => Factorial(n))
+                    .PipeTo(Sender);
                     break;
             }
         }
@@ -36,7 +35,7 @@ namespace Sample.Cluster.Factorial.Backend
             {
                 acc = BigInteger.Multiply(acc, new BigInteger(i));
             }
-            return new FactorialResult(n, acc);
+            return new FactorialResult(n, acc.ToString());
         }
 
         public static Props Props() =>
