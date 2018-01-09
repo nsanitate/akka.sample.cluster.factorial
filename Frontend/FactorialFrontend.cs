@@ -33,22 +33,11 @@ namespace Sample.Cluster.Factorial.Frontend
             switch (message)
             {
                 case FactorialResult result:
-                    Log.Debug("{0}! = {1}", result.N, result.Factorial);
-                    if (result.N == UpToN)
-                    {
-                        // if (Repeat)
-                        // {
-                        //     SendJob();
-                        // }
-                        // else
-                        // {
-                        Context.Stop(Self);
-                        // }
-                    }
+                    Log.Info("{0}! = {1}", result.N, result.Factorial);
                     break;
                 case ReceiveTimeout _:
                     Log.Info("Timeout");
-                    // SendJob();
+                    SendJob();
                     break;
             }
         }

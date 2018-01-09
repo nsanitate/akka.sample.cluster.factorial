@@ -18,7 +18,7 @@ namespace Sample.Cluster.Factorial.Frontend
 
             var cluster = Akka.Cluster.Cluster.Get(system);
 
-            cluster.RegisterOnMemberUp(() => system.ActorOf(FactorialFrontend.Props(upToN, true), "factorialFrontend"));
+            cluster.RegisterOnMemberUp(() => system.ActorOf(FactorialFrontend.Props(upToN, false), "factorialFrontend"));
 
             cluster.RegisterOnMemberRemoved(() =>
             {

@@ -9,7 +9,6 @@ namespace Sample.Cluster.Factorial.Configuration
 				akka {
                     actor {
                         provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
-
                         deployment {
                             /factorialFrontend/factorialBackendRouter = { 
                                 router = round-robin-group
@@ -17,12 +16,11 @@ namespace Sample.Cluster.Factorial.Configuration
                                 cluster {
                                     enabled = on
                                     use-role = backend
-                                    allow-local-routees = on
+                                    allow-local-routees = off
                                 }
                             }
                         }
                     }
-
                     remote {
                         dot-netty.tcp {
                             hostname = ""127.0.0.1""
@@ -31,18 +29,14 @@ namespace Sample.Cluster.Factorial.Configuration
                     }
                     cluster {
                         min-nr-of-members = 3
-
                         role {
                             frontend.min-nr-of-members = 1
                             backend.min-nr-of-members = 2
                         }
-
                         seed-nodes = [
                             ""akka.tcp://ClusterSystem@127.0.0.1:2551""
-                            ""akka.tcp://ClusterSystem@127.0.0.1:2552""]
-
-                        # auto downing is NOT safe for production deployments.
-                        # you may want to use it during development, read more about it in the docs.
+                            ""akka.tcp://ClusterSystem@127.0.0.1:2552""
+                        ]
                         auto-down-unreachable-after = 10s
                     }
                 }
